@@ -1,0 +1,29 @@
+@startuml
+
+|User|
+start
+fork
+:Changes Global Volume UI slider;
+fork again
+
+|Sampler|
+:Listens for Global Volume UI changes;
+:Updates internal global volume attribute;
+:Notifies observer objects;
+:Changes the displayed Global Volume value;
+end fork
+
+|Voice|
+:Updates internal volume attribute;
+:Applies volume value when generating audio data;
+
+|SettingsUnoRedoManager|
+:Tells Sampler to create memento;
+:Stores memento in state history list;
+note right: Save state for undo/redo
+
+
+|User|
+stop
+
+@enduml

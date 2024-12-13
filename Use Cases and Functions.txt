@@ -1,0 +1,34 @@
+Use cases:
+-User opens the application - settings are changeable (describe more about the state of the application at this point).
+-User searches for a sample file in the search module. User clicks in the search bar and types characters. The application searches its sample file library and presents relevant matches to the user. 
+-User uploads a sample file to the library. User clicks the upload sample icon and opens the sample upload interface. User drags and drops the sample file into the interface or selects the sample file from a directory on their computer. 
+-User loads a sample file into the player from the application's sample library. The user opens the sample library or has searched for a sample. The user clicks the desired sample file, displayed as icons with names, and the application loads the file into the player. 
+-User plays the sample by pressing a key on the laptop/computer keyboard. 
+-User connects midi input controller device to the computer and the application connects to the midi input source. 
+-Application listens for midi note input from the connection. 
+-User triggers note output from the midi device. The application is listening for midi input from the connection; when note input is received the application plays the file at the corresponding pitch/playback speed. 
+-User opens the effects library in the application. The application presents icons representing different available effects.
+-User loads an effect into the players processing chain by clicking on the respective effect icon. The application adds the loaded effect's processing algorithm to the audio output signal of the player.
+-
+
+
+
+*Flyweight for note objects?
+*Note object attributes - pitch value, note-on value, note-off value.
+
+*Maybe handle input and output as streams to be able to do polyphony. 
+
+
+*Event listeners - midi event listeners; keyboard event listeners; mouse-click event listeners. 
+*ADSR - these are playback and volume details. 
+*Can use image files by converting to wav file? 
+
+Very simple music stream example:
+https://www.researchgate.net/figure/Complete-UML-class-diagram_fig4_237444443
+
+This looks more like a sample player:
+https://www.clear.rice.edu/comp310/f12/assignments/hw06/
+
+Code example:
+https://doomy.org/creating-a-very-simple-sampler-audio-plugin-in-juce-5/
+

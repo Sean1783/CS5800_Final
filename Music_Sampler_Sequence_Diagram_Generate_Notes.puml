@@ -1,0 +1,38 @@
+@startuml
+
+actor User
+participant HostSystem
+participant NoteManager
+participant MidiEffectChain
+participant NoteFactory
+
+autonumber
+
+User -> HostSystem: Key press
+
+HostSystem -> NoteManager: Input data
+activate NoteManager
+
+alt Input data is valid
+    NoteManager -> MidiEffectChain: Valid input data
+    activate MidiEffectChain
+else Input data is invalid
+    NoteManager -> HostSystem: Error message
+end
+
+activate MidiEffectChain
+
+note right MidiEffectChain
+Applies MIDI
+processing to input data.
+end note
+
+MidiEffectChain --> NoteManager: Processed data
+deactivate MidiEffectChain
+NoteManager -> NoteFactory: Request for Note object
+activate NoteFactory
+NoteFactory --> NoteManager: Note objects
+deactivate NoteFactory
+
+
+@enduml

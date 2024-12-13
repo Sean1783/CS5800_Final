@@ -1,0 +1,30 @@
+@startuml
+
+
+|User|
+start
+:Clicks "Save Preset" button on main UI;
+
+|PresetManager|
+:Opens "Save Preset" dialogue box;
+
+|User|
+:Enters name for preset;
+:Clicks "Save";
+
+|PresetManager|
+if (Is valid file name?) then (Yes)
+    if (No PresetMemento in preset list?) then (Yes)
+        :Creates PresetMemento object with current state;
+    else (no)
+    endif
+    :Save last PresetMemento as preset values into a file in preset directory;
+    :Notifies User that preset has been saved;
+else (no)
+    :Displays "Invalid file name" message;
+endif
+
+|User|
+stop
+
+@enduml

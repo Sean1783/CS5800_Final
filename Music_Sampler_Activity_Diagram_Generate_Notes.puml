@@ -1,0 +1,24 @@
+@startuml
+
+|User|
+start
+fork
+:Presses keyboard;
+
+|NoteManager|
+fork again
+    :Listens for input;
+end fork
+:Receives input;
+if (Is valid MIDI?) then (Yes)
+    :Applies MIDI effects processing chain;
+    :Generates Note objects;
+    :Sends Note objects to VoiceManager;
+else (No)
+    :Display "MIDI input error";
+endif
+
+|User|
+stop
+
+@enduml

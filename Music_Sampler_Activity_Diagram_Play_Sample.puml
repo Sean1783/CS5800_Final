@@ -1,0 +1,46 @@
+@startuml
+
+|User|
+start
+:Presses a key on computer keyboard or MIDI device;
+
+|Sampler|
+if (Sample is loaded?) then (Yes)
+
+    |NoteManager|
+    :Process MIDI input;
+    :Send Notes to VoiceManager;
+
+    |VoiceManager|
+    :Send note values to an available Voice object;
+
+    |Voice|
+floating note right: Per voice parallel processing
+    fork
+        :Generate audio data;
+    fork again
+        :Generate audio data;
+    fork again
+        :Generate audio data;
+    fork again
+        :Generate audio data;
+    end fork
+
+    |VoiceDataConsolidator|
+    :Process audio data;
+
+    |AudioEffectsChain|
+    :Process audio data;
+    :Send processed audio data to output line;
+
+    |Sampler|
+
+else (No)
+endif
+
+|User|
+stop
+
+
+@enduml
+

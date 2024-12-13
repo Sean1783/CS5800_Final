@@ -1,0 +1,29 @@
+@startuml
+
+|User|
+start
+
+:Clicks "Upload Sample" icon in GUI;
+
+|Sampler|
+:Presents file upload interface;
+
+|User|
+:Provides file to upload interface;
+
+|Sampler|
+:Performs file validation checks on file;
+if (File is validated?) then (Yes)
+    :Copies file into application's sample library directory;
+    :Displays "File uploaded" message;
+
+else (No)
+:Displays "File upload error" with relevant validation error;
+endif
+|User|
+:Closes upload interface;
+
+|User|
+stop
+
+@enduml

@@ -1,0 +1,62 @@
+@startuml
+
+actor User
+
+autonumber
+
+participant HostSystem
+participant NoteManager
+participant VoiceManager
+participant Voice
+participant VoiceDataConsolidator
+participant EffectsProcessingChain
+
+User -> HostSystem: Key press
+HostSystem -> NoteManager: Input data
+
+note right NoteManager
+Applies MIDI processing
+end note
+
+activate NoteManager
+NoteManager -> VoiceManager: Note objects
+deactivate NoteManager
+activate VoiceManager
+
+note right VoiceManager
+Assigns Note objects to
+idle Voice objects
+end note
+
+VoiceManager -> Voice: Note object
+deactivate VoiceManager
+
+par For each active Voice
+    activate Voice
+    note right Voice
+    Write audio data into
+    into buffers
+    end note
+    VoiceDataConsolidator <- Voice : Audio data
+    deactivate Voice
+    activate VoiceDataConsolidator
+end
+
+loop For every global clock time step
+    VoiceDataConsolidator -> EffectsProcessingChain: Summed audio data
+    deactivate VoiceDataConsolidator
+    activate EffectsProcessingChain
+end
+
+EffectsProcessingChain --> HostSystem: Processed audio data
+deactivate EffectsProcessingChain
+
+note over HostSystem
+HostSystem converts audio data
+into sound.
+end note
+
+HostSystem --> User
+
+@enduml
+

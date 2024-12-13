@@ -1,0 +1,63 @@
+@startuml
+
+|User|
+start
+:Enters text in search field;
+
+|Sampler|
+:Searches library directory for matches;
+if (Matches found?) then (Yes)
+    :Displays matches in results field;
+
+    |User|
+    if (Selects a sample?) then (Yes)
+
+        |Sampler|
+        if (Different file is already loaded?) then (Yes)
+            :Display "Load new sample?" message;
+
+            |User|
+            if (Confirms "Yes"?) then (Yes)
+
+                |Sampler|
+                :Perform selection validation;
+                if (Selection is valid?) then (Yes)
+                    :Load file into sampler application and readies it for playback;
+                    :Displays "Sample loaded" message;
+                else (No)
+                    :Display "Invalid file" message;
+                endif;
+
+            |User|
+            else (No)
+
+                |Sampler|
+                :Close dialogue;
+                :Displays matches in results field;
+
+'            |User|
+            endif
+        |Sampler|
+        else (No)
+            :Perform selection validation;
+            if (Selection is valid?) then (Yes)
+                :Load file into sampler application and readies it for playback;
+                :Displays "Sample loaded" message;
+            else (No)
+                :Display "Invalid file" message;
+            endif;
+        endif
+
+'    |User|
+    else (No)
+    endif
+
+|Sampler|
+else (No)
+    :Display "No matches found" message to User;
+endif
+
+|User|
+stop
+
+@enduml

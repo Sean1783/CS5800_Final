@@ -1,0 +1,45 @@
+@startuml
+|User|
+start
+
+:Enters text in search field;
+
+|Sampler|
+:Searches library directory for matches;
+if (Matches found?) then (Yes)
+    :Displays matches in results field;
+
+    |User|
+    if (Selects an effect?) then (Yes)
+
+        |Sampler|
+        if (Is audio or MIDI effect?) then (Audio)
+
+            |AudioEffectChain|
+            :Add effect to audio processing chain;
+
+        |Sampler|
+        else (MIDI)
+
+            |NoteManger|
+            :Add effect to MIDI processing chain;
+        endif
+
+        |SettingsUndoRedoManager|
+        :Tells AudioEffectChain to create memento;
+        :Stores memento in state history;
+        note right: Save state for undo/redo
+
+    |Sampler|
+    else (No)
+    endif
+
+|Sampler|
+else (No)
+    :Display "No matches found" message to User;
+endif
+
+|User|
+stop
+
+@enduml

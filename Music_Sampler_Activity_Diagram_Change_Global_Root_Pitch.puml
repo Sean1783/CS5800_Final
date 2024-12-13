@@ -1,0 +1,28 @@
+@startuml
+
+|User|
+fork
+start
+:Changes Global Root Pitch wheel on main UI;
+fork again
+
+|Sampler|
+:Listens for Global Root Pitch UI changes;
+:Notifies observer objects;
+:Updates internal global root pitch attribute;
+:Sends updated Global Root Pitch value to VoiceManager;
+:Changes the displayed Global Root Pitch value;
+end fork
+
+|Voice|
+:Updates internal pitch attribute;
+:Applies pitch value when generating audio data;
+
+|SettingsUnoRedoManager|
+:Tells Sampler to create memento;
+:Stores memento in state history list;
+note right: Save state for undo/redo
+
+|User|
+stop
+@enduml
